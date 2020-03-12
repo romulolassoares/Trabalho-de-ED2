@@ -1,4 +1,6 @@
-package trabalho;
+package ordenacao;
+
+import trabalho.Registro;
 
 public class InsertionSort {
     private Registro[] vet;//Vetor que amarzena os dados
