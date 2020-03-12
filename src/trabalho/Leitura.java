@@ -7,17 +7,17 @@ import java.io.IOException;
 
 public class Leitura {
     private static final String VIRGULA = ","; //Variavel utilizada para tratar a leitura do arquivo .csv
-    private Musica[] dados; // inicializa o vetor para armazenar os registro lidos do documento .csv
+    private Registro[] dados; // inicializa o vetor para armazenar os registro lidos do documento .csv
     private int numColunas;
 
     public Leitura() {
-        this.dados = new Musica[100];
+        this.dados = new Registro[100];
     }
    
-    public Musica[] lerArquivo() throws IOException{
+    public Registro[] lerArquivo() throws IOException{
         int i = 0;
         try {
-            BufferedReader leitura = new BufferedReader(new FileReader("top2018.csv")); //Leitura do arquivo .csv de Musicas
+            BufferedReader leitura = new BufferedReader(new FileReader("top2018.csv")); //Leitura do arquivo .csv de Registros
             String linha = leitura.readLine(); //Variavel que lê a primeira linha do arquivo .csv
             String[] cabecalho = linha.split(VIRGULA);//Cabeçalho do arquivo .csv
             this.numColunas = cabecalho.length ;
@@ -35,7 +35,7 @@ public class Leitura {
                     }   
                     //OBS.: As colunas que foram a mais não somen
                 } 
-                this.dados[i] = new Musica(aCampos[0], aCampos[1], aCampos[2]);//Adiciona as informações no vetor de Musica com as informções do arquivo .csv
+                this.dados[i] = new Registro(aCampos[0], aCampos[1], aCampos[2]);//Adiciona as informações no vetor de Registro com as informções do arquivo .csv
                 i++; //incrementa a variavel de controle
                 linha = leitura.readLine(); //lê a proxima linha   
             }
