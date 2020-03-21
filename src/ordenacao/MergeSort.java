@@ -13,7 +13,10 @@ public class MergeSort {
     }
     //Funcao principal da classe, chamada no main
     public void organiza(){
+        long tempoInicial = System.currentTimeMillis();
         mergeSort(0, this.vet.length - 1);
+        long tempoFinal = System.currentTimeMillis();
+        System.out.println("Executado em = " + (tempoFinal - tempoInicial) + " ms");
     }
     //Faz a ordenacao do this.vetor
     protected void mergeSort(int first, int last) {

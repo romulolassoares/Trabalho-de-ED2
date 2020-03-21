@@ -10,7 +10,10 @@ public class QuickSort {
     }
     
     public void organiza(){
+        long tempoInicial = System.currentTimeMillis();
         quickSort(0, this.vet.length-1);
+        long tempoFinal = System.currentTimeMillis();
+        System.out.println("Executado em = " + (tempoFinal - tempoInicial) + " ms");
     }
     
     protected void  quickSort(int esq, int dir){

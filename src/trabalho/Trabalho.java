@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import ordenacao.InsertionSort;
 import ordenacao.MergeSort;
+import ordenacao.QuickSort;
 
 public class Trabalho {
     public static void main(String[] args) throws IOException {
@@ -16,12 +17,14 @@ public class Trabalho {
         Leitura a = new Leitura(); //Inicializa a classe para executar a leitura do arquivo .csv
         InsertionSort insertion;
         MergeSort merge;
+        QuickSort quick;
         
         vetor = a.lerArquivo(); //Lê o arquivo .csv e passa para o vetor os dados
         //Menu para selecionar o método de ordenção
         System.out.println("Escolha como orgazinar");
         System.out.println("(1) Insertion Sort");
         System.out.println("(2) Merge Sort");
+        System.out.println("(3) Quick Sort");
         option = input.nextInt();
         switch(option){
             case 1: insertion = new InsertionSort(vetor, vetor.length);
@@ -29,6 +32,9 @@ public class Trabalho {
                     break;
             case 2: merge = new MergeSort(vetor);
                     merge.organiza();
+                    break;
+            case 3: quick = new QuickSort(vetor);
+                    quick.organiza();
                     break;
         }
         //Final do menu

@@ -13,7 +13,10 @@ public class InsertionSort {
     }
     //Funcao principal da classe, chamada no main
     public void organiza(){
+        long tempoInicial = System.currentTimeMillis();
         insertionSort();
+        long tempoFinal = System.currentTimeMillis();
+        System.out.println("Executado em = " + (tempoFinal - tempoInicial) + " ms");
     }
     //Função de ordenação do Insertion Sort
     protected void insertionSort(){
