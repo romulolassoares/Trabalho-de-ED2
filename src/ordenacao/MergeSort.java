@@ -26,75 +26,82 @@ public class MergeSort {
             mergeSort(first, mid);
             mergeSort(mid+1, last);
             mergeByArtist(first, mid, last);
-            //Ordena pelo nome da música
+//            //Ordena pelo nome da música
             mergeSort(first, mid);
             mergeSort(mid+1, last);
             mergeByName(first, mid, last);
         }
     }
     //Funcao auxiliar de ordenacao para o nome do artista
-    protected void mergeByArtist(int first, int mid, int last) {
-        int i = first;//i1
-        int j = mid+1;//i2
-        int k = first;
-       
-        while (i <= mid && j <= last) {
-            if (this.vet[i].getArtist().compareToIgnoreCase(this.vet[j].getArtist())<0) {
-                this.auxVet[k] = this.vet[i];
-                i++;
-                k++;
-            } else {
-                this.auxVet[k] = this.vet[j];
-                j++;
-                k++;
+
+     public void mergeByArtist( int first, int mid, int last) {
+        // Cria vetores temporarios
+        Registro esqVet[] = new Registro[mid - first + 1];
+        Registro dirVet[] = new Registro[last - mid];
+
+        // Copia os valores para o vetores temporarios
+        for (int i = 0; i < esqVet.length; i++)
+            esqVet[i] = this.vet[first + i];
+        for (int i = 0; i < dirVet.length; i++)
+            dirVet[i] = this.vet[mid + i + 1];
+        int esqIndex = 0;
+        int dirIndex = 0;
+
+        // Copiando dos vetores temporarios para o vetor original
+        for (int i = first; i < last + 1; i++) {
+            if (esqIndex < esqVet.length && dirIndex < dirVet.length) {
+                //if (esqVet[esqIndex] < dirVet[dirIndex]) {
+                if(esqVet[esqIndex].getArtist().compareToIgnoreCase(dirVet[dirIndex].getArtist()) < 0){
+                   vet[i] = esqVet[esqIndex];
+                   esqIndex++;
+                } else {
+                    vet[i] = dirVet[dirIndex];
+                    dirIndex++;
+                }
+            } else if (esqIndex < esqVet.length) {
+                vet[i] = esqVet[esqIndex];
+                esqIndex++;
+            } else if (dirIndex < dirVet.length) {
+                vet[i] = dirVet[dirIndex];
+                dirIndex++;
             }
-        } 
-        while(i<=mid){
-            this.auxVet[k] = this.vet[i];
-            i++;
-            k++;
-        }
-        while(j<=last){
-            this.auxVet[k] = this.vet[j];
-            j++;
-            k++;
-        }
-        for (int x = first; x <= last; i++) {
-            this.vet[x]=this.auxVet[x];
         }
     }
     //Funcao auxiliar de ordenacao para o nome da música
     protected void mergeByName(int first, int mid, int last) {
-        int i = first;//i1
-        int j = mid+1;//i2
-        int k = first;
-        
-        while (i <= mid && j <= last) {
-            if(this.vet[i].getArtist().compareToIgnoreCase(this.vet[j].getArtist())==0){ //Verifica se os nomes dos artistas são iguais
-                if (this.vet[i].getName().compareToIgnoreCase(this.vet[j].getName())<0) {
-                    this.auxVet[k] = this.vet[i];
-                    i++;
-                    k++;
-                } else {
-                    this.auxVet[k] = this.vet[j];
-                    j++;
-                    k++;
+        // Cria vetores temporarios
+        Registro esqVet[] = new Registro[mid - first + 1];
+        Registro dirVet[] = new Registro[last - mid];
+
+        // Copia os valores para o vetores temporarios
+        for (int i = 0; i < esqVet.length; i++)
+            esqVet[i] = this.vet[first + i];
+        for (int i = 0; i < dirVet.length; i++)
+            dirVet[i] = this.vet[mid + i + 1];
+        int esqIndex = 0;
+        int dirIndex = 0;
+
+        // Copiando dos vetores temporarios para o vetor original
+        for (int i = first; i < last + 1; i++) {
+            if (esqIndex < esqVet.length && dirIndex < dirVet.length) {
+                if(esqVet[esqIndex].getArtist().compareToIgnoreCase(dirVet[dirIndex].getArtist())==0){ //Verifica se os nomes dos artistas são iguais
+                    if(esqVet[esqIndex].getName().compareToIgnoreCase(dirVet[dirIndex].getName()) < 0){
+                       vet[i] = esqVet[esqIndex];
+                       esqIndex++;
+                    } else {
+                        vet[i] = dirVet[dirIndex];
+                        dirIndex++;
+                    }
                 }
-            } 
-            while(i<=mid){
-                this.auxVet[k] = this.vet[i];
-                i++;
-                k++;
+            } else if (esqIndex < esqVet.length) {
+                vet[i] = esqVet[esqIndex];
+                esqIndex++;
+            } else if (dirIndex < dirVet.length) {
+                vet[i] = dirVet[dirIndex];
+                dirIndex++;
             }
-            while(j<=last){
-                this.auxVet[k] = this.vet[j];
-                j++;
-                k++;
-            }
-            for (int x = first; x <= last; i++) {
-                this.vet[x]=this.auxVet[x];
-            }
-       }
+        }     
     }
+        
 
 }
