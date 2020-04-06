@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Leitura {
     private static final String VIRGULA = ","; //Variavel utilizada para tratar a leitura do arquivo .csv
@@ -16,26 +19,30 @@ public class Leitura {
    
     public Registro[] lerArquivo() throws IOException{
         int i = 0;
+        String ASPAS =  "\",\"";
         try {
-            BufferedReader leitura = new BufferedReader(new FileReader("top2018.csv")); //Leitura do arquivo .csv de Registros
+            BufferedReader leitura = new BufferedReader(new FileReader("dataset.txt")); //Leitura do arquivo .csv de Registros
             String linha = leitura.readLine(); //Variavel que lê a primeira linha do arquivo .csv
             String[] cabecalho = linha.split(VIRGULA);//Cabeçalho do arquivo .csv
             this.numColunas = cabecalho.length ;
             linha = leitura.readLine();
-            while (linha != null) {
-                       //TRATAMENTO DE ENTRADA (,)
-                String[] aCampos = linha.split(VIRGULA);//Vetor que armazena temporariamente cada campo lido do .csv 
-                if(aCampos.length > numColunas){//Verifica se a linha lida passou do numero de colunas corretos
-                    int dif = aCampos.length - 16;//Numeros de colunas erradas
-                    for (int e = 2; e <= dif+1; e++) {//Concerta o campo do nome da música
-                        aCampos[1] += " " + aCampos[e];
-                    }
-                    for (int d = 2; d <= 15; d++) {//Corrigi os campos q estavam errados
-                        aCampos[d] = aCampos[d+dif];
-                    }   
-                    //OBS.: As colunas que foram a mais não somen
-                } 
-                this.dados[i] = new Registro(aCampos[0], aCampos[1], aCampos[2]);//Adiciona as informações no vetor de Registro com as informções do arquivo .csv
+            while (linha != null && i < 100) {
+                
+                //System.out.println(linha.toString());
+                 String[] aCampos = linha.split(ASPAS);
+                
+                 for (int j = 0; j < aCampos.length; j++) {
+                        if (aCampos[j].contains("\"")) {
+                            String regex = "\"";
+                            Pattern p = Pattern.compile(regex);
+                            Matcher m = p.matcher(aCampos[j]);
+
+                            while (m.find()) {
+                                aCampos[j] = aCampos[j].replace("\"", "");
+                            }
+                        }
+                    } 
+               this.dados[i] = new Registro(aCampos[0], aCampos[1], aCampos[2], aCampos[3], aCampos[4], aCampos[5], aCampos[6], aCampos[7], aCampos[8], aCampos[9], aCampos[10], aCampos[11], aCampos[12], aCampos[13], aCampos[14], aCampos[15], aCampos[16], aCampos[17], aCampos[18], aCampos[19], aCampos[20], aCampos[21], aCampos[22], aCampos[23], aCampos[24]);
                 i++; //incrementa a variavel de controle
                 linha = leitura.readLine(); //lê a proxima linha   
             }
