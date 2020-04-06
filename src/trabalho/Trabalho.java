@@ -4,6 +4,7 @@
 package trabalho;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import ordenacao.InsertionSort;
 import ordenacao.MergeSort;
@@ -14,7 +15,7 @@ public class Trabalho {
         int option;
         Scanner input = new Scanner(System.in);
         Registro[] vetor; //Inicia um vetor de Musica para armazernar os dados do arquivo .csv
-        Leitura a = new Leitura(); //Inicializa a classe para executar a leitura do arquivo .csv
+        Leitura a = new Leitura(1000); //Inicializa a classe para executar a leitura do arquivo .csv
         vetor = a.lerArquivo(); //Lê o arquivo .csv e passa para o vetor os dados
 //        InsertionSort insertion;
 //        MergeSort merge;
@@ -38,8 +39,8 @@ public class Trabalho {
 //        }
         //Final do menu
         //Impressão dos dados após a organização
-        for (int i = 0; i < vetor.length-1; i++) {
-            vetor[i].print();
+       for (int i = 0; i < vetor.length-1; i++) {
+             vetor[i].print();
         }
         
     }  

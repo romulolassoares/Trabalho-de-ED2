@@ -25,25 +25,26 @@ public class QuickSort {
     }
     
     protected int particiona(int esq, int dir){
-        Registro pivo = this.vet[esq];
-        int i = (esq + 1), j = dir;
-        while (i <= j){
-            if (this.vet[i].getArtist().compareToIgnoreCase(pivo.getArtist()) <= 0){
-                i++;
-            }
-            else if (this.vet[j].getArtist().compareToIgnoreCase(pivo.getArtist()) > 0){
-                j--;
-            }
-            else {
-                Registro temp = this.vet[i];
-                this.vet[i] = this.vet[j];
-                this.vet[j] = temp;
-                i++;
-                j--;
-            }
-        }
-        this.vet[esq] = this.vet[j];
-        this.vet[j] = pivo;
-        return j;
+        return 0;
+//        Registro pivo = this.vet[esq];
+//        int i = (esq + 1), j = dir;
+//        while (i <= j){
+//            if (this.vet[i].getArtist().compareToIgnoreCase(pivo.getArtist()) <= 0){
+//                i++;
+//            }
+//            else if (this.vet[j].getArtist().compareToIgnoreCase(pivo.getArtist()) > 0){
+//                j--;
+//            }
+//            else {
+//                Registro temp = this.vet[i];
+//                this.vet[i] = this.vet[j];
+//                this.vet[j] = temp;
+//                i++;
+//                j--;
+//            }
+//        }
+//        this.vet[esq] = this.vet[j];
+//        this.vet[j] = pivo;
+//        return j;
     }
 }
