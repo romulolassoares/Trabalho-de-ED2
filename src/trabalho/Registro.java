@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Registro {
+    private String URL_BASE = "https://bookdepository.com";
     //Variáveis do arquivo csv dataset.csv
     private String authors; //Nomes dos autores no authors.csv
     private String bestsellers_rank; //Ranking de livros mais vendidos
@@ -60,7 +61,7 @@ public class Registro {
         this.rating_avg = rating_avg;
         this.rating_count = rating_count;
         this.title = title;
-        this.url = url;
+        this.url = this.URL_BASE + url;
         this.weight = weight;
     }
     
