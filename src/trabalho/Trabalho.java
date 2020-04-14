@@ -23,7 +23,7 @@ public class Trabalho {
         vetor = a.lerArquivo(); //Lê o arquivo .csv e passa para o vetor os dados
 //        InsertionSort insertion;
 //        MergeSort merge;
-//        QuickSort quick;
+        QuickSort quick;
         //Menu para selecionar o método de ordenção
 //        System.out.println("Escolha como orgazinar");
 //        System.out.println("(1) Insertion Sort");
@@ -43,6 +43,8 @@ public class Trabalho {
 //        }
         //Final do menu
         //Impressão dos dados após a organização
+        quick = new QuickSort(vetor);
+                    quick.organiza();
         for (int i = 0; i <= vetor.length-1; i++) {
             vetor[i].print();
         }
