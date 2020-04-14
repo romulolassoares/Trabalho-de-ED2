@@ -220,4 +220,10 @@ public class Registro {
                 + "|"
                 + this.weight);
     }
+
+    public void setAuthors(String authors) {
+        this.authors = authors;
+    }
+    
+    
 }

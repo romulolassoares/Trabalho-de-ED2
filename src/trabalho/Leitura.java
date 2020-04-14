@@ -4,58 +4,76 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.text.html.HTML;
 
 public class Leitura {
-    private static final String VIRGULA = ","; //Variavel utilizada para tratar a leitura do arquivo .csv
+    private static final char VIRGULA = ',';
+    private static final char ASPAS = '"';
+    private String arquivoCSV;
     private Registro[] dados; // inicializa o vetor para armazenar os registro lidos do documento .csv
-    private Registro[] rw; // Vetor contendo todos os registro lidos do documento .csv
-    private int N;
+    private int quantidade;
+    
 
-    public Leitura(int N) {
-        this.N = N;
-        this.dados = new Registro[this.N];    
+    public Leitura(int quantidade) {
+        this.arquivoCSV = "dataset.csv";
+        this.quantidade = quantidade;
+        this.dados = new Registro[this.quantidade];   
     }
-   
-    public Registro[] lerArquivo() throws IOException{
-        Random random = new Random(); //Classe para gerar numeros aleatórios
-        int i = 0, k = 0;
-        String ASPAS =  "\",\"";
+    
+    public Registro[] lerArquivo() throws IOException {
         try {
-            BufferedReader leitura = new BufferedReader(new FileReader("dataset.csv")); //Leitura do arquivo .csv de Registros
-            String linha = leitura.readLine(); //Variavel que lê a primeira linha do arquivo .csv
-            String[] cabecalho = linha.split(VIRGULA);//Cabeçalho do arquivo .csv
-            linha = leitura.readLine();
-            while (linha != null && i < 811) {
-                
-                //System.out.println(linha.toString());
-                 String[] aCampos = linha.split(ASPAS);
-                
-                 for (int j = 0; j < aCampos.length; j++) {
-                        if (aCampos[j].contains("\"")) {
-                            String regex = "\"";
-                            Pattern p = Pattern.compile(regex);
-                            Matcher m = p.matcher(aCampos[j]);
-
-                            while (m.find()) {
-                                aCampos[j] = aCampos[j].replace("\"", "");
-                            }
+            BufferedReader leitura = new BufferedReader(new FileReader(this.arquivoCSV));// Lê o arquivo CSV
+            String linha = leitura.readLine();// Lê a primeira linha
+            linha = leitura.readLine();// Pula o cabeçalho do arquivo
+            int i = 0;
+            String texto = " ";
+            boolean entreAspas = false;
+            int coluna = 0;
+            String[] campos = new String[25];// Vetor das colunas no arquivo csv
+            while (linha != null && i < this.quantidade) {
+                char[] caracteres = linha.toCharArray();// Tranforma a linha lida em um vetor de char
+                // Loop para andar em todas os campos do vetor de char
+                for (int j = 0; j < caracteres.length;) {
+                    // Verifica se não está entre aspas
+                    if (entreAspas != true) {
+                        if (caracteres[j] == this.VIRGULA) {// Ignora a vírgula
+                            coluna++;
+                            texto = "";
+                            j++;
                         }
                     }
-                 System.out.println("i: " + i);
-                 
-              this.dados[i] = new Registro(aCampos[0], aCampos[1], aCampos[2], aCampos[3], aCampos[4], aCampos[5], aCampos[6], aCampos[7], aCampos[8], aCampos[9], aCampos[10], aCampos[11], aCampos[12], aCampos[13], aCampos[14], aCampos[15], aCampos[16], aCampos[17], aCampos[18], aCampos[19], aCampos[20], aCampos[21], aCampos[22], aCampos[23], aCampos[24]);
-                i++; //incrementa a variavel de controle
-                linha = leitura.readLine(); //lê a proxima linha   
-            }
-            
+                    // Verifica se o caractere é aspas
+                    if ( caracteres[j] == this.ASPAS ) {
+                        if (entreAspas) { entreAspas = false; }// Se tiver fora das aspas
+                        else { entreAspas = true; }// Se tiver entre aspas
+                    }
+                    // Verifica se é um campo vazio no vetor
+                    if (caracteres[j] == this.ASPAS && j+1 < caracteres.length ) {
+                        if(caracteres[j+1] == this.ASPAS ){ texto = ""; }
+                    }
+                    texto += caracteres[j];// Concatena os caracteres
+                    campos[coluna] = texto;// Coloca o texto no vetor das colunas 
+                    j++;
+                }
+                // Retira as aspas
+                for (int j = 0; j < campos.length; j++) { campos[j] = campos[j].replaceAll("\"", ""); }
+                // Insere os valores no vetor de Registros
+                this.dados[i] = new Registro(campos[0], campos[1], campos[2], campos[3], campos[4], campos[5], campos[6], campos[7], campos[8], campos[9], campos[10], campos[11], campos[12], campos[13], campos[14], campos[15], campos[16], campos[17], campos[18], campos[19], campos[20], campos[21], campos[22], campos[23], campos[24]);
+                i++;
+                linha = leitura.readLine();// Lê a proxima linha
+                coluna = 0;// Volta para a primeira coluna
+                texto = "";// Reseta o texto
+            }  
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Erro na leitura do arquivo."); //mensagem de erro caso não seja possivel realizar a leitura do arquivo
         }
         return this.dados;
     }
+        
 }

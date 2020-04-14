@@ -12,10 +12,14 @@ import ordenacao.QuickSort;
 
 public class Trabalho {
     public static void main(String[] args) throws IOException {
-        int option;
+        int option, quant;
         Scanner input = new Scanner(System.in);
         Registro[] vetor; //Inicia um vetor de Musica para armazernar os dados do arquivo .csv
-        Leitura a = new Leitura(1000); //Inicializa a classe para executar a leitura do arquivo .csv
+        //++++++++++++++++++++++++++++++++++++
+        System.out.println("Informa a quantidade de valores a serem lidos: ");
+        quant = input.nextInt();
+        //++++++++++++++++++++++++++++++++++++
+        Leitura a = new Leitura(quant); //Inicializa a classe para executar a leitura do arquivo .csv
         vetor = a.lerArquivo(); //Lê o arquivo .csv e passa para o vetor os dados
 //        InsertionSort insertion;
 //        MergeSort merge;
@@ -39,9 +43,11 @@ public class Trabalho {
 //        }
         //Final do menu
         //Impressão dos dados após a organização
-       for (int i = 0; i < vetor.length-1; i++) {
-             vetor[i].print();
+        for (int i = 0; i <= vetor.length-1; i++) {
+            vetor[i].print();
         }
+//
+           
         
     }  
 }
