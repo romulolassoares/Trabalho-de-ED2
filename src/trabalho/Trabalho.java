@@ -44,12 +44,10 @@ public class Trabalho {
         //Final do menu
         //Impressão dos dados após a organização
         quick = new QuickSort(vetor);
-                    quick.organiza();
+        quick.organiza();
+        System.out.println("------------------");
         for (int i = 0; i <= vetor.length-1; i++) {
             vetor[i].print();
-        }
-//
-           
-        
+        }        
     }  
 }
