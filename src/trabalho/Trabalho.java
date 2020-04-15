@@ -24,7 +24,7 @@ public class Trabalho {
 //        InsertionSort insertion;
 //        MergeSort merge;
         QuickSort quick;
-        //Menu para selecionar o método de ordenção
+        // Menu para selecionar o método de ordenção
 //        System.out.println("Escolha como orgazinar");
 //        System.out.println("(1) Insertion Sort");
 //        System.out.println("(2) Merge Sort");
