@@ -4,45 +4,94 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.text.html.HTML;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Leitura {
     private static final char VIRGULA = ',';
     private static final char ASPAS = '"';
-    private String arquivoCSV;
-    private ArrayList<Registro> tDados;
-    private Registro[] dados; // inicializa o vetor para armazenar os registro lidos do documento .csv
-    private int quantidade;
+    private static final String livrosCSV = "dataset.csv";
+    private ArrayList<Registro> leituraDados;
     private long tempoInicial;
     private long tempoFinal;
 
-    public Leitura(int quantidade) {
-        this.arquivoCSV = "dataset.csv";
-        this.quantidade = quantidade;
-        this.tDados = new ArrayList<Registro>();
-        this.dados = new Registro[this.quantidade];   
+    public Leitura() throws IOException {
+        this.leituraDados = new ArrayList<Registro>();
     }
     
-    public Registro[] lerArquivo() throws IOException {
+    //Função para ler parâmetros
+    public ArrayList<Integer> lerParametros(String arquivoNome) throws IOException {
+        ArrayList<Integer> parametros = new ArrayList<>();
         try {
+            BufferedReader leitura = new BufferedReader(new FileReader("Entradas/"+arquivoNome));
+            String linha = leitura.readLine();
+            
+            while(linha != null) {
+                parametros.add(Integer.parseInt(linha));
+                linha = leitura.readLine();
+            }
+            leitura.close();
+            return parametros;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Leitura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    //Retorn um vetor com N elementos do arquivo pre carregado
+    public Registro[] lerArquivo(int quantidade) throws IOException {
+        Registro[] dados = new Registro[quantidade]; //Vetor para armazenar e retornar o dados aleatórios do documento .csv
+        Random r = new Random(System.currentTimeMillis());// Classe para gerar numeros aleatórios
+        int e = 0;
+        
+        if(this.leituraDados.size() < quantidade) {
+            dados = null;
+            System.out.println("Erro: não há "+quantidade+" registros pre carregados disponiveis!");
+            return dados;
+        }
+        
+        System.out.println("Escolhendo "+ quantidade + " números aleatorios...");
+        tempoInicial = System.currentTimeMillis();
+        ArrayList<Integer> numAleatorios = new ArrayList<>(); //Lista para armazenar numeros já sorteados
+        boolean sorteado = false;
+        while (e < quantidade ) { //Gera o vetor que será ordenado/ inserido na tabela hash
+           int aleatorio = r.nextInt(leituraDados.size()); //Gera um valor aleatório entre 0 e a quantidade de registros - 1
+           for(int l=0; l<numAleatorios.size(); l++) {
+                if(aleatorio == numAleatorios.get(l)) {
+                    sorteado = true;
+                }
+           }
+
+           if(!sorteado) {
+                numAleatorios.add(aleatorio);
+                dados[e] = this.leituraDados.get(aleatorio); //insere no vetor o valor aleatorio corresponde no vetor que contem todos os registros criados
+                e++; // incrementa a variavel de controle
+           } 
+           sorteado = false;
+        }
+        tempoFinal = System.currentTimeMillis();
+        System.out.println("A randomização do arquivo demorou: " + (tempoFinal - tempoInicial) + " ms\n");
+        
+        return dados;
+    }
+    
+    //Pre recarrega os dados para o uso durante toda execução
+    public void preCarregarArquivo() throws IOException {
+        try {
+            System.out.println("Pre carregando arquivo em memória...");
             tempoInicial = System.currentTimeMillis();
-            BufferedReader leitura = new BufferedReader(new FileReader(this.arquivoCSV));// Lê o arquivo CSV
+            BufferedReader leitura = new BufferedReader(new FileReader(this.livrosCSV));// Lê o arquivo CSV
             String linha = leitura.readLine();// Lê a primeira linha
-            Random r = new Random();// Classe para gerar numeros aleatórios
             linha = leitura.readLine();// Pula o cabeçalho do arquivo
             int i = 0;
-            int e = 0;
-            String texto = " ";
+            String texto = "";
             boolean entreAspas = false;
             int coluna = 0;
             String[] campos = new String[25];// Vetor das colunas no arquivo csv
-            while (linha != null && i < 10000) {
+            while (linha != null && i < 240000) {
                 char[] caracteres = linha.toCharArray();// Tranforma a linha lida em um vetor de char
                 // Loop para andar em todas os campos do vetor de char
                 for (int j = 0; j < caracteres.length;) {
@@ -72,31 +121,19 @@ public class Leitura {
                     j++;
                 }
                 // Insere os valores no vetor de Registros
-                this.tDados.add( new Registro(campos[0], campos[1], campos[2], campos[3], campos[4], campos[5], campos[6], campos[7], campos[8], campos[9], campos[10], campos[11], campos[12], campos[13], campos[14], campos[15], campos[16], campos[17], campos[18], campos[19], campos[20], campos[21], campos[22], campos[23], campos[24]) );
+                this.leituraDados.add( new Registro(campos[0], campos[1], campos[2], campos[3], campos[4], campos[5], campos[6], campos[7], campos[8], campos[9], campos[10], campos[11], campos[12], campos[13], campos[14], campos[15], campos[16], campos[17], campos[18], campos[19], campos[20], campos[21], campos[22], campos[23], campos[24]) );
                 i++;
                 linha = leitura.readLine();// Lê a proxima linha
                 coluna = 0;// Volta para a primeira coluna
                 texto = "";// Reseta o texto
             }  
             tempoFinal = System.currentTimeMillis();
-            System.out.println("A leitura do arquivo demorou: " + (tempoFinal - tempoInicial) + " ms");
-            System.out.println("+++++++++++++++++++++++++++++++++++++++");
-            System.out.println("Escolhendo "+ this.quantidade + " de números aleatorios");
-            tempoInicial = System.currentTimeMillis();
-            while (e < this.quantidade ) { //Gera o vetor que será ordenado/ inserido na tabela hash
-                int aleatorio = r.nextInt(tDados.size()); //Gera um valor aleatório entre 0 e a quantidade de registros - 1
-               this.dados[e] = this.tDados.get(aleatorio); //insere no vetor o valor aleatorio corresponde no vetor que contem todos os registros criados
-                e++; // incrementa a variavel de controle
-            }
-            tempoFinal = System.currentTimeMillis();
-            System.out.println("A randomização do arquivo demorou: " + (tempoFinal - tempoInicial) + " ms");
-            System.out.println("+++++++++++++++++++++++++++++++++++++++");
-            
+            System.out.println("O pre carregamento demorou: " + (tempoFinal - tempoInicial) + " ms\n");
+            leitura.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Erro na leitura do arquivo."); //mensagem de erro caso não seja possivel realizar a leitura do arquivo
         }
-        return this.dados;
     }
         
 }

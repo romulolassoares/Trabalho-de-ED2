@@ -1,7 +1,5 @@
 package trabalho;
 //26 variaves
-import java.util.ArrayList;
-import java.util.Date;
 
 public class Registro {
     private String URL_BASE = "https://bookdepository.com";
