@@ -91,7 +91,7 @@ public class Leitura {
             boolean entreAspas = false;
             int coluna = 0;
             String[] campos = new String[25];// Vetor das colunas no arquivo csv
-            while (linha != null && i < 240000) {
+            while (linha != null && i < 540000) {
                 char[] caracteres = linha.toCharArray();// Tranforma a linha lida em um vetor de char
                 // Loop para andar em todas os campos do vetor de char
                 for (int j = 0; j < caracteres.length;) {
