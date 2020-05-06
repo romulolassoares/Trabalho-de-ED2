@@ -25,7 +25,9 @@ public class Trabalho {
                         break;
                 case 2: int[] k = new int[2];
                         k[0] = 3; k[1] = 5;
-                        opcoesMenu.executarParte1Cenario2(k);
+                        int[] m = new int[2];
+                        m[0] = 10; m[1] = 100;
+                        opcoesMenu.executarParte1Cenario2(k, m);
                         break;
                 case 3: //opcoesMenu.executarParte1Cenario3();
                         break;

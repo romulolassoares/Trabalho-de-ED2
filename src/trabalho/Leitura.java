@@ -126,6 +126,27 @@ public class Leitura {
                 linha = leitura.readLine();// Lê a proxima linha
                 coluna = 0;// Volta para a primeira coluna
                 texto = "";// Reseta o texto
+                
+                //Temporário. Apenas para verificar andamento da leitura
+                if(this.leituraDados.size() == 100000) {
+                    System.out.println("100.000");
+                } else if(this.leituraDados.size() == 150000) {
+                    System.out.println("150.000");
+                } else if(this.leituraDados.size() == 200000) {
+                    System.out.println("200.000");
+                } else if(this.leituraDados.size() == 250000) {
+                    System.out.println("250.000");
+                } else if(this.leituraDados.size() == 300000) {
+                    System.out.println("300.000");
+                } else if(this.leituraDados.size() == 350000) {
+                    System.out.println("350.000");
+                } else if(this.leituraDados.size() == 400000) {
+                    System.out.println("400.000");
+                } else if(this.leituraDados.size() == 450000) {
+                    System.out.println("450.000");
+                } else if(this.leituraDados.size() == 500000) {
+                    System.out.println("500.000");
+                }
             }  
             tempoFinal = System.currentTimeMillis();
             System.out.println("O pre carregamento demorou: " + (tempoFinal - tempoInicial) + " ms\n");
