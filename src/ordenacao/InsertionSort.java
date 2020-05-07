@@ -10,9 +10,9 @@ public class InsertionSort {
         
     }
     
-    public void ordena(Registro[] vetor, int n){
+    public void ordena(Registro[] vetor){
         long tempoInicial = System.currentTimeMillis();
-        insertionSort(vetor, n);
+        insertionSort(vetor, vetor.length);
         long tempoFinal = System.currentTimeMillis();
         Metrica.setTempo(tempoFinal-tempoInicial);
     }

@@ -2,6 +2,7 @@ package trabalho;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import ordenacao.HeapSort;
 import ordenacao.InsertionSort;
 import ordenacao.MergeSort;
 import ordenacao.QuickSort;
@@ -15,6 +16,7 @@ public class OpcoesMenu {
     QuickSort quickSort;
     InsertionSort insertionSort;
     MergeSort mergeSort;
+    HeapSort heapSort;
     
     public OpcoesMenu() throws IOException {
         leitura = new Leitura();
@@ -22,6 +24,7 @@ public class OpcoesMenu {
         quickSort = new QuickSort();
         insertionSort = new InsertionSort();
         mergeSort = new MergeSort();
+        heapSort = new HeapSort();
         
         leitura.preCarregarArquivo();
     }
