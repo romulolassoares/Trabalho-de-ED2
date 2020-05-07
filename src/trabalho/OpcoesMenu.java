@@ -2,6 +2,8 @@ package trabalho;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import ordenacao.InsertionSort;
+import ordenacao.MergeSort;
 import ordenacao.QuickSort;
 
 public class OpcoesMenu {
@@ -11,11 +13,15 @@ public class OpcoesMenu {
     
     //Ordenadores
     QuickSort quickSort;
+    InsertionSort insertionSort;
+    MergeSort mergeSort;
     
     public OpcoesMenu() throws IOException {
         leitura = new Leitura();
         escrita = new Escrita();
         quickSort = new QuickSort();
+        insertionSort = new InsertionSort();
+        mergeSort = new MergeSort();
         
         leitura.preCarregarArquivo();
     }
@@ -141,7 +147,9 @@ public class OpcoesMenu {
     }
         //FINAL - CENÁRIO 2
         //INÍCIO - CENÁRIO 3
-    
+    public void executarParte1Cenario3() throws IOException {
+        
+    }
         //FINAL - CENÁRIO 3
         //INÍCIO - CENÁRIO 4
     
@@ -151,6 +159,17 @@ public class OpcoesMenu {
     //INÍCIO - PARTE 2
     
     //FINAL - PARTE 2
+    
+    private boolean testeEquals(Registro[] vetor) {
+        for(int i=0; i<vetor.length; i++) {
+            for(int j=i+1; j<vetor.length; j++) {
+                if(vetor[i].getTitle().equals(vetor[j].getTitle())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     
     //Início - Funções de uso geral
     public void closeEscrita() throws IOException {

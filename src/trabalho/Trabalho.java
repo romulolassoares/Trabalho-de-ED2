@@ -29,7 +29,7 @@ public class Trabalho {
                         m[0] = 10; m[1] = 100;
                         opcoesMenu.executarParte1Cenario2(k, m);
                         break;
-                case 3: //opcoesMenu.executarParte1Cenario3();
+                case 3: opcoesMenu.executarParte1Cenario3();
                         break;
                 case 4: //opcoesMenu.executarParte1Cenario4();
                         break;
