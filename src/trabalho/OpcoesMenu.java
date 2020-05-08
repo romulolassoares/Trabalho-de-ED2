@@ -68,9 +68,7 @@ public class OpcoesMenu {
         //FINAL - CENÁRIO 1
         //INICIO - CENÁRIO 2
     public void executarParte1Cenario2(int[] k, int[] m) throws IOException {
-        Registro[] vetorR;
-        Registro[][] vetorM = new Registro[k.length][];
-        Registro[][] vetorI = new Registro[m.length][];
+        Registro[] vetor;
         int execucoes = 5;
         parametrosN = leitura.lerParametros("Parte 1 - cenario 2.txt");
         if(parametrosN != null) {
@@ -81,43 +79,48 @@ public class OpcoesMenu {
             for(int j=0; j<execucoes; j++) { //Executa 5 vezes os testes
 
                 for(int l=0; l<parametrosN.size(); l++) {
-                    vetorR = leitura.lerArquivo(parametrosN.get(l));
-                    if(vetorR != null) {
-                        int aux;
-                        for(aux = 0; aux<k.length; aux++) { vetorM[aux] = (Registro[])vetorR.clone(); }
-                        for(aux = 0; aux<m.length; aux++) { vetorI[aux] = (Registro[])vetorR.clone(); }
+                    int aux;
                     
-                        //Ordena QuickSort Recursivo
+                    //Ordena QuickSort Recursivo
+                    vetor = leitura.lerArquivo(parametrosN.get(l));
+                    if(vetor != null) {
                         Metrica.clear();
                         System.out.println("Parte 1 - Cenário 2: Ordenando estrutura com QuickSort Recursivo...");
-                        quickSort.ordena_Recursivo(vetorR);
+                        quickSort.ordena_Recursivo(vetor);
                         System.out.println("Ordenação feita em = " + Metrica.getTempo() + " ms\n");
                         mediaR[l][0] += Metrica.getTempo();
                         mediaR[l][1] += Metrica.getCopias();
                         mediaR[l][2] += Metrica.getComparacoes();
-
-                        //Ordena QuickSort Mediana
-                        for(aux=0; aux<k.length; aux++) {
+                    }
+                    
+                    //Ordena QuickSort Mediana
+                    for(aux=0; aux<k.length; aux++) {
+                        vetor = leitura.lerArquivo(parametrosN.get(l));
+                        if(vetor != null) {
                             Metrica.clear();
                             System.out.println("Parte 1 - Cenário 2: Ordenando estrutura com QuickSort Mediana...");
-                            quickSort.ordena_Mediana(vetorM[aux], k[aux]);
+                            quickSort.ordena_Mediana(vetor, k[aux]);
                             System.out.println("Ordenação feita em = " + Metrica.getTempo() + " ms\n");
                             mediaM[aux][l][0] += Metrica.getTempo();
                             mediaM[aux][l][1] += Metrica.getCopias();
                             mediaM[aux][l][2] += Metrica.getComparacoes();
                         }
+                    }
                         
-                        //Ordena QuickSort Inserção
-                        for(aux=0; aux<m.length; aux++) {
+                    //Ordena QuickSort Inserção
+                    for(aux=0; aux<m.length; aux++) {
+                        vetor = leitura.lerArquivo(parametrosN.get(l));
+                        if(vetor != null) {
                             Metrica.clear();
                             System.out.println("Parte 1 - Cenário 2: Ordenando estrutura com QuickSort Inserção...");
-                            quickSort.ordena_Insercao(vetorI[aux], m[aux]);
+                            quickSort.ordena_Insercao(vetor, m[aux]);
                             System.out.println("Ordenação feita em = " + Metrica.getTempo() + " ms\n");
                             mediaI[aux][l][0] += Metrica.getTempo();
                             mediaI[aux][l][1] += Metrica.getCopias();
                             mediaI[aux][l][2] += Metrica.getComparacoes();
                         }
                     }
+                    
                 }
             }
             
@@ -151,10 +154,8 @@ public class OpcoesMenu {
         //FINAL - CENÁRIO 2
         //INÍCIO - CENÁRIO 3
     public void executarParte1Cenario3() throws IOException {
-        Registro[] vetorI;
-        Registro[] vetorM;
-        Registro[] vetorH;
-        //Registro[] vetor?;
+        Registro[] vetor;
+        
         int execucoes = 5;
         parametrosN = leitura.lerParametros("Parte 1 - cenario 3.txt");
         if(parametrosN != null) {
@@ -165,52 +166,53 @@ public class OpcoesMenu {
             
             for(int i=0; i<execucoes; i++) { //Executa 5 vezes os testes
                 for(int j=0; j<parametrosN.size(); j++) {
-                    
-                    vetorI = leitura.lerArquivo(parametrosN.get(j));
-                    if(vetorI != null) {
-                        vetorM = (Registro[])vetorI.clone();
-                        vetorH = (Registro[])vetorI.clone();
-                        //vetor? = (Registro[])vetorI.clone();
-                        
-                        //Ordena com InsertionSort
+                    //Ordena com InsertionSort
+                    vetor = leitura.lerArquivo(parametrosN.get(j));
+                    if(vetor != null) {
                         Metrica.clear();
                         System.out.println("Parte 1 - Cenário 3: Ordenando estrutura com InsertionSort...");
-                        insertionSort.ordena(vetorI);
+                        insertionSort.ordena(vetor);
                         System.out.println("Ordenação feita em = " + Metrica.getTempo() + " ms\n");
                         mediaI[j][0] += Metrica.getTempo();
                         mediaI[j][1] += Metrica.getCopias();
                         mediaI[j][2] += Metrica.getComparacoes();
-                        
+                    }
                     
-                        //Ordena com MergeSort
+                    //Ordena com MergeSort
+                    vetor = leitura.lerArquivo(parametrosN.get(j));
+                    if(vetor != null) {
                         Metrica.clear();
                         System.out.println("Parte 1 - Cenário 3: Ordenando estrutura com MergeSort...");
-                        mergeSort.ordena(vetorM);
+                        mergeSort.ordena(vetor);
                         System.out.println("Ordenação feita em = " + Metrica.getTempo() + " ms\n");
                         mediaM[j][0] += Metrica.getTempo();
                         mediaM[j][1] += Metrica.getCopias();
                         mediaM[j][2] += Metrica.getComparacoes();
+                    }
                     
-                    
-                        //Ordena com HeapSort
+                    //Ordena com HeapSort
+                    vetor = leitura.lerArquivo(parametrosN.get(j));
+                    if(vetor != null) {
                         Metrica.clear();
                         System.out.println("Parte 1 - Cenário 3: Ordenando estrutura com HeapSort...");
-                        heapSort.ordena(vetorH);
+                        heapSort.ordena(vetor);
                         System.out.println("Ordenação feita em = " + Metrica.getTempo() + " ms\n");
                         mediaH[j][0] += Metrica.getTempo();
                         mediaH[j][1] += Metrica.getCopias();
                         mediaH[j][2] += Metrica.getComparacoes();
+                    }
                     
-                    
-                        //Ordena com MeuSort
+                    //Ordena com MeuSort
+//                    vetor = leitura.lerArquivo(parametrosN.get(j));
+//                    if(vetor != null) {
 //                        Metrica.clear();
 //                        System.out.println("Parte 1 - Cenário 3: Ordenando estrutura com MeuSort...");
-//                        meuSort.ordena(vetor?);
+//                        meuSort.ordena(vetor);
 //                        System.out.println("Ordenação feita em = " + Metrica.getTempo() + " ms\n");
 //                        media?[j][0] += Metrica.getTempo();
 //                        media?[j][1] += Metrica.getCopias();
 //                        media?[j][2] += Metrica.getComparacoes();
-                    }
+//                    }
                 }
             }
             //IMPRIME RESULTADOS
@@ -250,17 +252,6 @@ public class OpcoesMenu {
     //INÍCIO - PARTE 2
     
     //FINAL - PARTE 2
-    
-    private boolean testeEquals(Registro[] vetor) {
-        for(int i=0; i<vetor.length; i++) {
-            for(int j=i+1; j<vetor.length; j++) {
-                if(vetor[i].getTitle().equals(vetor[j].getTitle())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
     
     //Início - Funções de uso geral
     public void closeEscrita() throws IOException {
