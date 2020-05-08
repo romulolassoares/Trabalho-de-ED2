@@ -2,8 +2,8 @@ package trabalho;
 
 
 public class Metrica {
-    private static int comparacoes;
-    private static int copias;
+    private static long comparacoes;
+    private static long copias;
     private static long tempo;
     
     public static void clear() {
@@ -25,10 +25,10 @@ public class Metrica {
         Metrica.tempo = tempo;
     }
     
-    public static int getComparacoes() {
+    public static long getComparacoes() {
         return comparacoes;
     }
-    public static int getCopias() {
+    public static long getCopias() {
         return copias;
     }
     public static long getTempo() {
