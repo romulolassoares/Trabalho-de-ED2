@@ -32,30 +32,27 @@ public class HeapSort {
     }
     
     private void maxHeapify(Registro[] vetor, int i, int n) {
-        int m = i; // Initialize largest as root 
-        int l = 2*i + 1; // left = 2*i + 1 
-        int r = 2*i + 2; // right = 2*i + 2 
+        int m = i; 
+        int l = 2*i + 1; // left 
+        int r = 2*i + 2; // right
 
-        // If left child is larger than root 
-        if (l < n && (vetor[l].getTitle().compareToIgnoreCase(vetor[i].getTitle()) > 0)) {
+        if (l < n && (vetor[l].getTitle().compareToIgnoreCase(vetor[i].getTitle()) > 0 && Metrica.incrementaComparacoes())) {
             m = l; 
         }
 
-        if (r < n && vetor[r].getTitle().compareToIgnoreCase(vetor[m].getTitle()) > 0) 
+        if (r < n && vetor[r].getTitle().compareToIgnoreCase(vetor[m].getTitle()) > 0 && Metrica.incrementaComparacoes()) {
             m = r; 
+        }
 
-        // If largest is not root 
-        if (m != i) 
-        { 
+        if (m != i) { 
             trocar(i, m, vetor);
-
-            // Recursively heapify the affected sub-tree 
             maxHeapify(vetor, m, n);
         } 
     }
     
     private void trocar(int i, int j, Registro[] vetor) {
         Registro tmp = vetor[i];
+        Metrica.incrementaCopias();
         vetor[i] = vetor[j];
         vetor[j] = tmp;
     }

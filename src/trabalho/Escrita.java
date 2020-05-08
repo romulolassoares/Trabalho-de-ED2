@@ -16,12 +16,12 @@ public class Escrita {
     
     //INÍCIO - PARTE 1 DO TRABALHO
         //INÍCIO - CENÁRIO 1 E 2
-    public void imprimeCabecalioCenario1e2(int cenario, String execucao) {
+    public void imprimeCabecalio(int cenario, String execucao) {
         gravarSaida.write("-----------------------------------------------------------\n");
         gravarSaida.write("Parte 1 - Cenário "+cenario+" - "+execucao+"\n");
         gravarSaida.write("Tamanho\t\tTempo(ms)\tCópias\t\tComparações\n");
     }
-    public void imprimeDadosCenario1e2(int parametro, long tempo, int copias, int comparacoes) {
+    public void imprimeDados(int parametro, long tempo, int copias, int comparacoes) {
         gravarSaida.write(parametro+"\t\t"+tempo+"\t\t"+copias+"\t\t"+comparacoes+"\n");
     }
         //FINAL - CENÁRIO 1 E 2

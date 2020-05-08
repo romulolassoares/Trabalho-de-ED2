@@ -57,9 +57,9 @@ public class OpcoesMenu {
                 }
             }
             //Imprie a média
-            escrita.imprimeCabecalioCenario1e2(1, "Média");
+            escrita.imprimeCabecalio(1, "Média");
             for(int l=0; l<parametrosN.size(); l++) {
-                escrita.imprimeDadosCenario1e2(parametrosN.get(l), (long)(media[l][0]/execucoes), media[l][1]/execucoes, media[l][2]/execucoes);
+                escrita.imprimeDados(parametrosN.get(l), (long)(media[l][0]/execucoes), media[l][1]/execucoes, media[l][2]/execucoes);
             }
         } else {
             System.out.println("Nenhum parâmetro encoontrado");
@@ -124,24 +124,24 @@ public class OpcoesMenu {
             //Imprime Resultados
             int n, o;
             //QuickSort Recursivo
-            escrita.imprimeCabecalioCenario1e2(2, "Média QuickSort Recursivo");
+            escrita.imprimeCabecalio(2, "Média QuickSort Recursivo");
             for(n=0; n<parametrosN.size(); n++) {
-                escrita.imprimeDadosCenario1e2(parametrosN.get(n), (long)(mediaR[n][0]/execucoes), (mediaR[n][1]/execucoes), (mediaR[n][2]/execucoes));
+                escrita.imprimeDados(parametrosN.get(n), (long)(mediaR[n][0]/execucoes), (mediaR[n][1]/execucoes), (mediaR[n][2]/execucoes));
             }
             
             //QuickSort Mediana
             for(o=0; o<k.length; o++) {
-                escrita.imprimeCabecalioCenario1e2(2, "Média QuickSort Mediana com K = "+k[o]);
+                escrita.imprimeCabecalio(2, "Média QuickSort Mediana com K = "+k[o]);
                 for(n=0; n<parametrosN.size(); n++) {
-                    escrita.imprimeDadosCenario1e2(parametrosN.get(n), (long)(mediaM[o][n][0]/execucoes), (mediaM[o][n][1]/execucoes), (mediaM[o][n][2]/execucoes));
+                    escrita.imprimeDados(parametrosN.get(n), (long)(mediaM[o][n][0]/execucoes), (mediaM[o][n][1]/execucoes), (mediaM[o][n][2]/execucoes));
                 }
             }
             
             //QuickSort Inserção
             for(o=0; o<m.length; o++) {
-                escrita.imprimeCabecalioCenario1e2(2, "Média QuickSort Inserção com M = "+m[o]);
+                escrita.imprimeCabecalio(2, "Média QuickSort Inserção com M = "+m[o]);
                 for(n=0; n<parametrosN.size(); n++) {
-                    escrita.imprimeDadosCenario1e2(parametrosN.get(n), (long)(mediaI[o][n][0]/execucoes), (mediaI[o][n][1]/execucoes), (mediaI[o][n][2]/execucoes));
+                    escrita.imprimeDados(parametrosN.get(n), (long)(mediaI[o][n][0]/execucoes), (mediaI[o][n][1]/execucoes), (mediaI[o][n][2]/execucoes));
                 }
             }
         } else {
@@ -151,7 +151,95 @@ public class OpcoesMenu {
         //FINAL - CENÁRIO 2
         //INÍCIO - CENÁRIO 3
     public void executarParte1Cenario3() throws IOException {
-        
+        Registro[] vetorI;
+        Registro[] vetorM;
+        Registro[] vetorH;
+        //Registro[] vetor?;
+        int execucoes = 5;
+        parametrosN = leitura.lerParametros("Parte 1 - cenario 3.txt");
+        if(parametrosN != null) {
+            int[][] mediaI = new int[parametrosN.size()][3];
+            int[][] mediaM = new int[parametrosN.size()][3];
+            int[][] mediaH = new int[parametrosN.size()][3];
+            //int[][] media? = new int[parametrosN.size()][3];
+            
+            for(int i=0; i<execucoes; i++) { //Executa 5 vezes os testes
+                for(int j=0; j<parametrosN.size(); j++) {
+                    
+                    vetorI = leitura.lerArquivo(parametrosN.get(j));
+                    if(vetorI != null) {
+                        vetorM = (Registro[])vetorI.clone();
+                        vetorH = (Registro[])vetorI.clone();
+                        //vetor? = (Registro[])vetorI.clone();
+                        
+                        //Ordena com InsertionSort
+                        System.out.println("Parte 1 - Cenário 3: Ordenando estrutura com InsertionSort...");
+                        insertionSort.ordena(vetorI);
+                        System.out.println("Ordenação feita em = " + Metrica.getTempo() + " ms\n");
+                        mediaI[j][0] += Metrica.getTempo();
+                        mediaI[j][1] += Metrica.getCopias();
+                        mediaI[j][2] += Metrica.getComparacoes();
+                        Metrica.clear();
+                    
+                    
+                        //Ordena com MergeSort
+                        System.out.println("Parte 1 - Cenário 3: Ordenando estrutura com MergeSort...");
+                        mergeSort.ordena(vetorM);
+                        System.out.println("Ordenação feita em = " + Metrica.getTempo() + " ms\n");
+                        mediaM[j][0] += Metrica.getTempo();
+                        mediaM[j][1] += Metrica.getCopias();
+                        mediaM[j][2] += Metrica.getComparacoes();
+                        Metrica.clear();
+                    
+                    
+                        //Ordena com HeapSort
+                        System.out.println("Parte 1 - Cenário 3: Ordenando estrutura com HeapSort...");
+                        heapSort.ordena(vetorH);
+                        System.out.println("Ordenação feita em = " + Metrica.getTempo() + " ms\n");
+                        mediaH[j][0] += Metrica.getTempo();
+                        mediaH[j][1] += Metrica.getCopias();
+                        mediaH[j][2] += Metrica.getComparacoes();
+                        Metrica.clear();
+                    
+                    
+                        //Ordena com MeuSort
+//                        System.out.println("Parte 1 - Cenário 3: Ordenando estrutura com MeuSort...");
+//                        meuSort.ordena(vetor?);
+//                        System.out.println("Ordenação feita em = " + Metrica.getTempo() + " ms\n");
+//                        media?[j][0] += Metrica.getTempo();
+//                        media?[j][1] += Metrica.getCopias();
+//                        media?[j][2] += Metrica.getComparacoes();
+//                        Metrica.clear();
+                    }
+                }
+            }
+            //IMPRIME RESULTADOS
+            int n;
+            
+            //InsertionSort
+            escrita.imprimeCabecalio(3, "Média InsertionSort");
+            for(n=0; n<parametrosN.size(); n++) {
+                escrita.imprimeDados(parametrosN.get(n), (long)(mediaI[n][0]/execucoes), (mediaI[n][1]/execucoes), (mediaI[n][2]/execucoes));
+            }
+            
+            //MergeSort
+            escrita.imprimeCabecalio(3, "Média MergeSort");
+            for(n=0; n<parametrosN.size(); n++) {
+                escrita.imprimeDados(parametrosN.get(n), (long)(mediaM[n][0]/execucoes), (mediaM[n][1]/execucoes), (mediaM[n][2]/execucoes));
+            }
+            
+            //HeapSort
+            escrita.imprimeCabecalio(3, "Média HeapSort");
+            for(n=0; n<parametrosN.size(); n++) {
+                escrita.imprimeDados(parametrosN.get(n), (long)(mediaH[n][0]/execucoes), (mediaH[n][1]/execucoes), (mediaH[n][2]/execucoes));
+            }
+            
+            //MeuSort
+//            escrita.imprimeCabecalio(3, "Média MeuSort");
+//            for(n=0; n<parametrosN.size(); n++) {
+//                escrita.imprimeDados(parametrosN.get(n), (long)(media?[n][0]/execucoes), (media?[n][1]/execucoes), (media?[n][2]/execucoes));
+//            }
+        }
     }
         //FINAL - CENÁRIO 3
         //INÍCIO - CENÁRIO 4
